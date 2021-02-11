@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Newest Journal Articles</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <hr />
+    <div class="media media-middle">
+      <div class="media-left">
+        <a href="https://www.journals.uchicago.edu/toc/phos/current">
+          <img
+            class="media-object"
+            src="{{ articles[0].img }}"
+            alt=""
+            style="height: 64px !important"
+          />
+        </a>
+      </div>
+      <div class="media-body">
+        <h2>Latest Articles</h2>
+      </div>
+    </div>
+    <hr />
+    <section style="display: flex; flex-wrap: wrap">
+      {%- for article in articles %}
+      <div
+        class="panel panel-default m-4"
+        style="
+          max-width: 100%;
+          flex-grow: 0;
+          flex-basis: 350px;
+          display: flex;
+          flex-direction: column;
+          margin-right: 20px;
+        "
+      >
+        <div class="panel-heading">
+          <h3 class="h4" style="line-height: 1.2">{{ article.title }}</h3>
+        </div>
+        <div class="panel-body">
+          <p class="text-uppercase">
+            {{ article["dc:creator"] }}
+          </p>
+          <p class="">
+            <em>{{ article["dc:source"] }}</em> {{ article["prism:volume"] }},
+            no. {{ article["prism:number"] }}
+            {{ article["prism:coverDate"] | formatDate }}{% if
+            article["prism:startingPage"] %}:{% endif %}
+            {{ article["prism:startingPage"] }}{% if
+            article["prism:startingPage"] %}-{% endif %}{{
+              article["prism:endingPage"]
+            }}.
+          </p>
+        </div>
+        <div class="panel-footer" style="margin-top: auto">
+          <a href="{{ article.link }}" class="card-link">Read the Article</a>
+          <a href="https://philsci.org/membership.php" class="pull-right"
+            >Subscribe</a
+          >
+        </div>
+      </div>
+      {%- endfor %}
+    </section>
+  </body>
+</html>
